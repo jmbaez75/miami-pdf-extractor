@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Miami Data Extractor</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab1')">General & Batch</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab2')">Map Execution</button>
+    </div>
+
+    <div id="tab1" class="tab-content">
+        <h3>Batch Processing</h3>
+        
+        <label>Map file path:</label>
+        <input type="text" id="map_file" placeholder="Click to select file..." readonly onclick="document.getElementById('map_file_input').click()">
+        <input type="file" id="map_file_input" style="display:none" onchange="document.getElementById('map_file').value = this.files[0].name">
+        <a href="/edit-map" class="link-edit">Edit Map</a>
+        
+        <label>Massive PDF folder:</label>
+        <input type="text" id="mass_pdf_folder" placeholder="Click to select folder..." readonly onclick="document.getElementById('pdf_folder_input').click()">
+        <input type="file" id="pdf_folder_input" webkitdirectory style="display:none" onchange="document.getElementById('mass_pdf_folder').value = this.files[0].webkitRelativePath.split('/')[0]">
+        
+        <label>Excel output path:</label>
+        <input type="text" id="excel_out" placeholder="Click to select destination..." readonly onclick="document.getElementById('excel_out_input').click()">
+        <input type="file" id="excel_out_input" style="display:none" onchange="document.getElementById('excel_out').value = this.files[0].name">
+        
+        <button onclick="executeAction('batch')">Execute Batch</button>
+    </div>
+
+    <div id="tab2" class="tab-content" style="display:none;">
+        <h3>Single Map Execution</h3>
+        
+        <label>PDF to map:</label>
+        <input type="text" id="pdf_input" placeholder="Click to select PDF..." readonly onclick="document.getElementById('pdf_input_hidden').click()" value="{{last_map_route_pdf}}">
+        <input type="file" id="pdf_input_hidden" style="display:none" onchange="document.getElementById('pdf_input').value = this.files[0].name">
+        
+        <label>Output map path:</label>
+        <input type="text" id="map_out" placeholder="Click to select destination..." readonly onclick="document.getElementById('map_out_input').click()" value="{{output_map_path}}">
+        <input type="file" id="map_out_input" style="display:none" onchange="document.getElementById('map_out').value = this.files[0].name">
+        
+        <button onclick="executeAction('single')">Execute Mapping</button>
+    </div>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

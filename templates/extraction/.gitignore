@@ -1,0 +1,29 @@
+# Entorno Virtual
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+.DS_Store
+media/
+static/ # Si tus estáticos son generados, si no, quítalo
+config/.env # Si tienes variables de entorno ahí
+.python-version
+
+# Dependencias (uv)
+uv.lock
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
