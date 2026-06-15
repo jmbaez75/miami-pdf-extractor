@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from extraction import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Aquí es donde le dices a Django que busque las rutas dentro de 'extraction'
     path('fburo/', include('extraction.urls')), 
 ]
 

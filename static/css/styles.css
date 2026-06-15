@@ -106,3 +106,23 @@ button[onclick^="executeAction"] {
 button[onclick^="executeAction"]:hover {
     background: #e04a4e;
 }
+
+.logo-mpe {
+    width: 300px;
+    height: auto;
+    display: block;
+    margin-right: 40px; /* Esto centrará el logo si es necesario */
+}
+
+input[type=range] {
+    width: 100%;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Opcional: Estilo para el contenedor que contiene el slider */
+.slider-container {
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    margin-top: 15px;
+}

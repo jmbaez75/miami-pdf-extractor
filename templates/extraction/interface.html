@@ -1,53 +1,59 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Miami Data Extractor</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
+    
 </head>
 <body>
-
+<div class="logo-container">
+    <img src="{% static 'images/mpe_logo.png' %}" alt="MPE Logo" class="logo-mpe">
+</div>
 <div class="container">
     <div class="tabs">
         <button class="tab-btn active" onclick="openTab(event, 'tab1')">General & Batch</button>
         <button class="tab-btn" onclick="openTab(event, 'tab2')">Map Execution</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab3')">Instructions</button>
     </div>
 
     <div id="tab1" class="tab-content">
         <h3>Batch Processing</h3>
         
-        <label>Map file path:</label>
-        <input type="text" id="map_file" placeholder="Click to select file..." readonly onclick="document.getElementById('map_file_input').click()">
-        <input type="file" id="map_file_input" style="display:none" onchange="document.getElementById('map_file').value = this.files[0].name">
-        <a href="/edit-map" class="link-edit">Edit Map</a>
+        <label>Map file path (.csv):</label>
+        <input type="text" id="map_file" value="{{map_file_path}}" onchange="updateConfig('map_file_path', this.value)">
         
         <label>Massive PDF folder:</label>
-        <input type="text" id="mass_pdf_folder" placeholder="Click to select folder..." readonly onclick="document.getElementById('pdf_folder_input').click()">
-        <input type="file" id="pdf_folder_input" webkitdirectory style="display:none" onchange="document.getElementById('mass_pdf_folder').value = this.files[0].webkitRelativePath.split('/')[0]">
+        <input type="text" id="mass_pdf_folder" value="{{input_mass_folder}}" onchange="updateConfig('input_mass_folder', this.value)">
         
         <label>Excel output path:</label>
-        <input type="text" id="excel_out" placeholder="Click to select destination..." readonly onclick="document.getElementById('excel_out_input').click()">
-        <input type="file" id="excel_out_input" style="display:none" onchange="document.getElementById('excel_out').value = this.files[0].name">
+        <input type="text" id="excel_out" value="{{output_excel_path}}" onchange="updateConfig('output_excel_path', this.value)">
         
+        <label for="sensitivity">Sensibilidad (Holgura: <span id="val-sensitivity">5</span>px):</label>
+        <input type="range" id="sensitivity" min="0" max="50" value="5" 
+               oninput="document.getElementById('val-sensitivity').innerText = this.value">
+
         <button onclick="executeAction('batch')">Execute Batch</button>
     </div>
 
     <div id="tab2" class="tab-content" style="display:none;">
         <h3>Single Map Execution</h3>
         
-        <label>PDF to map:</label>
-        <input type="text" id="pdf_input" placeholder="Click to select PDF..." readonly onclick="document.getElementById('pdf_input_hidden').click()" value="{{last_map_route_pdf}}">
-        <input type="file" id="pdf_input_hidden" style="display:none" onchange="document.getElementById('pdf_input').value = this.files[0].name">
+        <label>PDF to map (Path):</label>
+        <input type="text" id="pdf_input" value="{{last_map_route_pdf}}" onchange="updateConfig('last_map_route_pdf', this.value)">
         
-        <label>Output map path:</label>
-        <input type="text" id="map_out" placeholder="Click to select destination..." readonly onclick="document.getElementById('map_out_input').click()" value="{{output_map_path}}">
-        <input type="file" id="map_out_input" style="display:none" onchange="document.getElementById('map_out').value = this.files[0].name">
+        <label>Output map path (Folder):</label>
+        <input type="text" id="map_out" value="{{output_map_path}}" onchange="updateConfig('output_map_path', this.value)">
         
         <button onclick="executeAction('single')">Execute Mapping</button>
     </div>
-</div>
 
+    <div id="tab3" class="tab-content" style="display:none;">
+        <h3>Instructions</h3>
+        <p>Configura las rutas escribiendo la ruta absoluta en los campos anteriores. Los cambios se guardan automáticamente al salir del campo de texto.</p>
+    </div>
+</div>
 <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
