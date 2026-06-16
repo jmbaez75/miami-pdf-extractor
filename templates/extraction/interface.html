@@ -3,6 +3,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Miami Data Extractor</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
     <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}?v=2">    
@@ -40,11 +43,21 @@
     <div id="tab2" class="tab-content" style="display:none;">
         <h3>Single Map Execution</h3>
         
-        <label>PDF to map (Path):</label>
-        <input type="text" id="pdf_input" accept=".pdf" value="{{last_map_route_pdf}}" onchange="updateConfig('last_map_route_pdf', this.value)">
-        
-        <label>Output map path (Folder):</label>
-        <input type="text" id="map_out" value="{{output_map_path}}" onchange="updateConfig('output_map_path', this.value)">
+    <label>PDF to map (Path):</label>
+    <input type="text" id="pdf_input" value="{{last_map_route_pdf}}" 
+           onclick="document.getElementById('file_picker_pdf').click()" 
+           onchange="updateConfig('last_map_route_pdf', this.value)"
+           readonly style="cursor:pointer;"> 
+    <input type="file" id="file_picker_pdf" style="display:none" accept=".pdf" 
+           onchange="document.getElementById('pdf_input').value = this.files[0].name; updateConfig('last_map_route_pdf', this.files[0].name)">
+
+    <label>Output map path (Folder):</label>
+    <input type="text" id="map_out" value="{{output_map_path}}" 
+           onclick="document.getElementById('folder_picker').click()" 
+           onchange="updateConfig('output_map_path', this.value)"
+           readonly style="cursor:pointer;">
+    <input type="file" id="folder_picker" style="display:none" webkitdirectory directory
+           onchange="document.getElementById('map_out').value = this.files[0].webkitRelativePath.split('/')[0]; updateConfig('output_map_path', this.files[0].webkitRelativePath.split('/')[0])">
         
         <button onclick="executeAction('single')">Execute Mapping</button>
     </div>
@@ -55,6 +68,6 @@
     </div>
 </div>
 <script>const csrftoken = '{{ csrf_token }}';</script>
-<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/script.js' %}?version=999"></script>
 </body>
 </html>

@@ -9,23 +9,23 @@ document.getElementById('sensitivity')?.addEventListener('input', function(e) {
 
 // Función de ejecución mejorada para incluir el valor actual
 function executeAction(type) {
+
+    // Se sabe las pestaña asctiva todo el rato
+    const activeTab = document.querySelector('.tab-content:not([style*="display: none"])');
+    let payload = { type: type };
     // 1. Aquí capturas lo que hay en pantalla
     
-    if (tabName === 'tab1') {
-    const payload = {
-        type: type,
-        action: "screening",
-        sensitivity: document.getElementById('sensitivity')?.value || 5,
-        excel_out: document.getElementById('excel_out')?.value,
-        mass_pdf_folder: document.getElementById('mass_pdf_folder')?.value
-    }}
-    else if (tabName === 'tab2') {
-     const payload ={
-        type:type,
-        action:"mapping",
-        pdf_input: document.getElementById('pdf_input')?.value,
-        map_out: document.getElementById('map_out').value
-    };
+    if (activeTab.id === 'tab1') {
+        payload.action = "screening",
+        payload.sensitivity= document.getElementById('sensitivity')?.value || 5;
+        payload.excel_out= document.getElementById('excel_out')?.value;
+        payload.mass_pdf_folder= document.getElementById('mass_pdf_folder')?.value
+    }
+    else if (activeTab.id=== 'tab2') {
+        payload.action="mapping",
+        payload.pdf_input= document.getElementById('pdf_input')?.value;
+        payload.map_out= document.getElementById('map_out').value
+
     };
     console.log(payload);
     // 2. Aquí envías el payload (la caja con toda la información)
@@ -38,7 +38,7 @@ function executeAction(type) {
         body: JSON.stringify(payload) // <--- ¡AQUÍ ESTÁ EL CAMBIO!
     })
     .then(response => response.json())
-    .then(data => alert("Respuesta del servidor: " + data.status));
+    .then(data => console.log("Respuesta del servidor: " + data.status));
 }
 
 // Helper para obtener el token CSRF (esencial en Django)
@@ -56,9 +56,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-
-
 
 // Función para guardar cambios en tiempo real
 function updateConfig(key, value) {
