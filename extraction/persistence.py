@@ -23,10 +23,14 @@ class PersistenceManager:
     @classmethod
     def _get_default_structure(cls):
         return {
-            "last_map_route_pdf": None,
-            "input_mass_folder": None,
-            "output_map_path": None,
-            "output_excel_path": None
+            "pdf_folder": None,         #A
+            "pdf_input": None,          #B    
+            "map_file_folder": None,    #C
+            "map_file": None,           #D
+            "mass_pdf_folder": None,    #E
+            "excel_folder": None,        #F
+            "sensitivity": None,        #F
+            
         }
 
     @classmethod
