@@ -1,8 +1,14 @@
 import json
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from .persistence import PersistenceManager # Importa tu clase
+from django.views.decorators.csrf import ensure_csrf_cookie
 
+@ensure_csrf_cookie
 def show_interface(request):
     # Cargamos las rutas desde tu archivo JSON
     config = PersistenceManager.load_paths()
@@ -14,6 +20,8 @@ def show_interface(request):
         'output_map_path': config.get('output_map_path'),
         'output_excel_path': config.get('output_excel_path')
     })
+
+
 def update_config(request):
     if request.method == 'POST':
         try:
@@ -26,5 +34,11 @@ def update_config(request):
     return JsonResponse({'status': 'error'}, status=405)
 
     return JsonResponse({'status': 'error'}, status=405)
+
+
 def execute_path(request):
+   
    print("Ejecutando la ruta")
+   if request.method == 'POST':
+       return JsonResponse({'status': 'success', 'message': 'Ruta procesada correctamente'})
+   return JsonResponse({'status': 'error', 'message': 'Solo se permiten peticiones POST'}, status=400) 

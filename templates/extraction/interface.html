@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Miami Data Extractor</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
-    
+    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}?v=2">    
 </head>
 <body>
 <div class="logo-container">
@@ -22,7 +22,7 @@
         <h3>Batch Processing</h3>
         
         <label>Map file path (.csv):</label>
-        <input type="text" id="map_file" value="{{map_file_path}}" onchange="updateConfig('map_file_path', this.value)">
+        <input type="text" accept=".csv" id="map_file" value="{{map_file_path}}" onchange="updateConfig('map_file_path', this.value)">
         
         <label>Massive PDF folder:</label>
         <input type="text" id="mass_pdf_folder" value="{{input_mass_folder}}" onchange="updateConfig('input_mass_folder', this.value)">
@@ -41,7 +41,7 @@
         <h3>Single Map Execution</h3>
         
         <label>PDF to map (Path):</label>
-        <input type="text" id="pdf_input" value="{{last_map_route_pdf}}" onchange="updateConfig('last_map_route_pdf', this.value)">
+        <input type="text" id="pdf_input" accept=".pdf" value="{{last_map_route_pdf}}" onchange="updateConfig('last_map_route_pdf', this.value)">
         
         <label>Output map path (Folder):</label>
         <input type="text" id="map_out" value="{{output_map_path}}" onchange="updateConfig('output_map_path', this.value)">
@@ -54,6 +54,7 @@
         <p>Configura las rutas escribiendo la ruta absoluta en los campos anteriores. Los cambios se guardan automáticamente al salir del campo de texto.</p>
     </div>
 </div>
+<script>const csrftoken = '{{ csrf_token }}';</script>
 <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

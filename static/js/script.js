@@ -10,11 +10,22 @@ document.getElementById('sensitivity')?.addEventListener('input', function(e) {
 // Función de ejecución mejorada para incluir el valor actual
 function executeAction(type) {
     // 1. Aquí capturas lo que hay en pantalla
+    
+    if (tabName === 'tab1') {
     const payload = {
         type: type,
+        action: "screening",
         sensitivity: document.getElementById('sensitivity')?.value || 5,
-        pdf_path: document.getElementById('pdf_input')?.value,
-        output_path: document.getElementById('map_out')?.value
+        excel_out: document.getElementById('excel_out')?.value,
+        mass_pdf_folder: document.getElementById('mass_pdf_folder')?.value
+    }}
+    else if (tabName === 'tab2') {
+     const payload ={
+        type:type,
+        action:"mapping",
+        pdf_input: document.getElementById('pdf_input')?.value,
+        map_out: document.getElementById('map_out').value
+    };
     };
     console.log(payload);
     // 2. Aquí envías el payload (la caja con toda la información)
