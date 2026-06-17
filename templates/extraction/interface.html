@@ -95,7 +95,11 @@
 </div>  
     <div id="tab5" class="tab-content" style="display:none;">
         <h3>Instructions</h3>
-        <p>Configura las rutas escribiendo la ruta absoluta en los campos anteriores. Los cambios se guardan automáticamente al salir del campo de texto.</p>
+        
+        <div class="instructions-body">
+        {% include 'extraction/instructions.html' %}
+        </div>
+        
     </div>
 </div>
 <script>const csrftoken = '{{ csrf_token }}';</script>

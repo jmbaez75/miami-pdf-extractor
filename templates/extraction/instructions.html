@@ -1,0 +1,35 @@
+<div class="instructions-body">
+    <h3>1. General & Batch (General & Batch)</h3>
+    <p>The control center for processing your files.</p>
+    <ul>
+        <li><strong>Paths:</strong> Set the absolute paths for your CSV map, input PDFs, and Excel output.</li>
+        <li><strong>Sensitivity:</strong> Adjust the slider (px tolerance) if the extractor struggles to match data due to layout variations.</li>
+        <li><strong>Execution:</strong> Click <strong>"Execute Batch"</strong> to process all PDFs in your folder based on your configuration.</li>
+    </ul>
+
+    <h3>2. Map Execution (Map Execution)</h3>
+    <p>Creates the reference map required for extraction.</p>
+    <ul>
+        <li><strong>Setup:</strong> Provide the path to a sample PDF that represents the layout of your documents.</li>
+        <li><strong>Execution:</strong> Click <strong>"Execute Mapping"</strong>. This scans the PDF layout and generates the <code>mapa_resultado.csv</code> file.</li>
+    </ul>
+
+    <h3>3. Output Columns (Output columns)</h3>
+    <p>Defines the structure of your final Excel report.</p>
+    <ul>
+        <li><strong>Mapping:</strong> After running a map in <strong>Map Execution</strong>, visit this tab to see all detected text.</li>
+        <li><strong>Configuration:</strong> Type your desired header name in the "Nombre columna" box for the data you want to export. Leave fields blank to ignore them.</li>
+        <li><strong>Save:</strong> Click <strong>"Guardar etiquetas"</strong> to commit your column choices to the map file.</li>
+    </ul>
+
+    <h3>4. Filters (Filters)</h3>
+    <p>Automates data cleaning during extraction.</p>
+    <ul>
+        <li><strong>Purpose:</strong> Define rules to replace specific text strings (e.g., removing symbols or correcting labels).</li>
+        <li><strong>Usage:</strong> Add a row, input the "Expresión a Buscar" (target), and define the "Reemplazo" (replacement).</li>
+        <li><strong>Save:</strong> Click <strong>"Guardar Filtros"</strong> to apply these cleaning rules to future batches.</li>
+    </ul>
+
+    <h3>5. Instructions (How to)</h3>
+    <p>You are here! Use this section to review the workflow or troubleshoot your setup whenever you need a quick reminder.</p>
+</div>
