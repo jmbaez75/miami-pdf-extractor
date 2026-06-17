@@ -1,5 +1,7 @@
 
-![MPE Interface](assets/logo.png)
+<p align="center">
+  <img src="assets/logo_cocodrilo.png" alt="Miami PDF Extractor Logo" width="150"/>
+</p>
 
 🌴 Miami PDF Extractor (M.P.E)
 
