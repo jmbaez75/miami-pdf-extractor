@@ -1,5 +1,6 @@
 import json
 import os 
+import pandas as pd
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -24,7 +25,7 @@ def show_interface(request):
         'pdf_folder': config.get('pdf_folder'),             #A
         'pdf_input': config.get('pdf_input'),               #B
         'output_map_path': config.get('output_map_path'),   #C
-        'map_pdf_folder': config.get('map_pdf_folder'),     #D
+        'map_file_folder': config.get('map_file_folder'),   #D
         'map_file': config.get('map_file'),                 #E
         'mass_pdf_folder': config.get('mass_pdf_folder'),   #E
         'excel_folder': config.get('excel_folder'),         #F
@@ -49,7 +50,7 @@ def update_config(request):
 
 
 def execute_path(request):
-   
+    print(f"datos recibidos")
     if request.method == 'POST':    
        # mostramos las variables recibidas enviadsa en consosla
        data = json.loads(request.body)
@@ -74,10 +75,9 @@ def get_template_data(request):
     # Esto busca el CSV que generó el MapExtractor en Tab 1
     # Asegúrate de usar la misma ruta que guardaste en tu PersistenceManager
     config = PersistenceManager.load_paths()
-    path = os.path.join(config.get('output_map_path'), "mapa_resultado.csv")
-    
+    path = os.path.join(config.get('map_file_folder'),config.get('map_file'))
     if not os.path.exists(path):
-        return JsonResponse({'error': 'No existe plantilla, ejecuta Tab 1 primero'}, status=404)
+        return JsonResponse({'status': 'error', 'message': 'CSV not fount with parameters in General&Batch. Check them'})
         
     df = pd.read_csv(path)
     return JsonResponse(df.fillna('').to_dict(orient='records'), safe=False)

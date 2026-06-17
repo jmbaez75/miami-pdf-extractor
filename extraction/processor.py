@@ -4,6 +4,21 @@ from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer
 from extraction.persistence import PersistenceManager
 
+'''
+
+{
+    "pdf_folder": "/home/administrador/pruebas/",
+    "pdf_input": "prueba.pdf",
+    "map_file_folder": "D",
+    "map_file": "E ",
+    "mass_pdf_folder": "F",
+    "excel_folder": "G  ",
+    "sensitivity": "19",
+    "output_map_path": "/home/administrador/pruebas/"
+}
+
+
+'''
 class MapExtractor:
     """
     Analyzes a base PDF to extract layout coordinates.
@@ -16,10 +31,10 @@ class MapExtractor:
         
         # Load output configuration
         self.output_map_dir = config.get('output_map_path')
-        self.output_excel_dir = config.get('output_excel_path')
+        self.output_excel_dir = config.get('excel_folder')
         
         # Handle PDF path logic
-        self.file_path = pdf_path or config.get('last_map_route_pdf')
+        self.file_path = pdf_path or config.get('map_file_folder')+config.get('map_file')
         
         if not self.file_path or not os.path.exists(self.file_path):
             raise FileNotFoundError("A valid PDF file is required to start the extraction process.")

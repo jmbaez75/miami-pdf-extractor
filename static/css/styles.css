@@ -13,6 +13,7 @@ body {
 
 /* --- Contenedor principal (Card) --- */
 .container {
+    position: relative;
     background: #ffffff;
     padding: 40px;
     border-radius: 16px;
@@ -106,6 +107,16 @@ button[onclick^="executeAction"] {
 button[onclick^="executeAction"]:hover {
     background: #e04a4e;
 }
+  
+.logo-container {
+    width: 300px;
+    flex-shrink: 0; /* El logo NUNCA se encogerá */
+    position: absolute; /* Se mantiene visible si haces scroll */
+    top: 50px;
+    left:50px;
+
+}
+
 
 .logo-mpe {
     width: 300px;

@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from django.conf import settings
 
+
+
 class PersistenceManager:
     CONFIG_FILE = Path(settings.BASE_DIR) / "config" / "app_config.json"
 
@@ -45,14 +47,26 @@ class PersistenceManager:
     @classmethod
     def ensure_configuration(cls):
         data = cls.load_paths()
-        check_paths = ["input_mass_folder", "output_map_path", "output_excel_path"]
+        check_paths = [ "mass_pdf_folder",
+                        "output_map_path",
+                        "excel_folder"]
         
         updated = False
         for key in check_paths:
             path_val = data.get(key)
+
+            if path_val:
+                path = Path(path_val).expanduser()
+                try:
+                    path.mkdir(parents=True, exist_ok=True)
+                    data[key] = str(path)
+                except Exception as e:
+                    raise ValueError(f"No se puede crear la ruta {path}: {e}")
             
             if not path_val or not os.path.isdir(path_val):
+                print (f"recibido el valor:  {path_val}")
                 print(f"\nConfiguration required for: {key.replace('_', ' ')}")
+ 
                 valid = False
                 while not valid:
                     user_input = input("Enter a valid directory path: ").strip()

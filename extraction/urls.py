@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.show_interface, name='interface'),
     path('update-config/', views.update_config, name='update_config'),
     path('execute-path/', views.execute_path, name='execute_path'),
-    path('update-config/', views.update_config, name='update_config'),
+    path('get-template-data/', views.get_template_data, name='get_template_data'),
+    path('save-template-config/', views.save_template_config, name='save_template_config'),
 
 ]

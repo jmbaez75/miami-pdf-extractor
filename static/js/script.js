@@ -90,75 +90,77 @@ function openTab(evt, tabName) {
  */
 
 // 1. Cargar datos dinámicamente al entrar en la Tab 4
-function loadTab4() {
-    fetch('/fburo/get-template-data/') // Asegúrate de que esta URL exista en urls.py
-    .then(response => response.json())
-    .then(data => {
-        const tbody = document.getElementById('config-body');
-        tbody.innerHTML = ''; // Limpiar previo
+function loadTab3() {
 
-        data.forEach((row, index) => {
-            let tr = document.createElement('tr');
-            // La celda original es solo texto (no editable)
-            // La celda de etiqueta tiene un input (editable)
-            tr.innerHTML = `
+    fetch('/fburo/get-template-data/')
+    .then(r => {
+        if (!r.ok) {
+            return r.json().then(err => {
+               
+                alert(err.error || err.message || 'Error desconocido');
+                throw new Error('handled');
+            });
+        }
+        return r.json();
+    })
+    .then(data => {
+
+        if (data.status === 'error') {
+        alert(data.message);  // o un div de error en la UI
+        return;    
+        }
+
+        const tbody = document.getElementById('config-body');
+        tbody.innerHTML = "";
+        data.forEach((row,index)=>{
+            tbody.innerHTML += `
+            <tr>
                 <td>${row.original_text}</td>
                 <td>
-                    <input type="text" 
-                           value="${row.header_label || ''}" 
-                           class="editable-header" 
-                           data-index="${index}">
+                    <input 
+                    class="editable-header"
+                    data-index="${index}"
+                    value="${row.header_label}">
                 </td>
+            </tr>
             `;
-            tbody.appendChild(tr);
-        });
-    })
-    .catch(err => console.error("Error al cargar datos del CSV:", err));
-}
-
-// 2. Guardar la configuración editada
-function guardarConfiguracion() {
-    const inputs = document.querySelectorAll('.editable-header');
-    let configuracion = [];
-    
-    inputs.forEach(input => {
-        configuracion.push({
-            index: input.getAttribute('data-index'),
-            header_label: input.value
         });
     });
-
-    fetch('/fburo/save-template-config/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') // Asegúrate de tener tu función getCookie
-        },
-        body: JSON.stringify({ updates: configuracion })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.status === 'ok') {
-            alert("Configuración de columnas guardada correctamente.");
-        } else {
-            alert("Error al guardar: " + data.message);
-        }
-    })
-    .catch(err => console.error("Error en el guardado:", err));
 }
 
-// 3. Helper para obtener el token CSRF (Requerido por Django)
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+
+function guardarConfiguracion(){
+
+    let updates=[];
+
+
+    document
+    .querySelectorAll('.editable-header')
+    .forEach(input=>{
+
+        updates.push({
+            index: input.dataset.index,
+            header_label: input.value
+        });
+
+    });
+
+
+    fetch('/fburo/save-template-config/',{
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':getCookie('csrftoken')
+        },
+
+        body:JSON.stringify({
+            updates:updates
+        })
+
+    })
+    .then(r=>r.json())
+    .then(data=>console.log(data));
+
 }
