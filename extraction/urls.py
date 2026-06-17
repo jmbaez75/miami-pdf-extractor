@@ -8,5 +8,7 @@ urlpatterns = [
     path('execute-path/', views.execute_path, name='execute_path'),
     path('get-template-data/', views.get_template_data, name='get_template_data'),
     path('save-template-config/', views.save_template_config, name='save_template_config'),
-
+    path('get-filters/', views.get_filters, name='get_filters'),
+    path('save-filters/', views.save_filters, name='save_filters'),
+   
 ]

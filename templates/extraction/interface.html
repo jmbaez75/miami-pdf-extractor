@@ -18,8 +18,9 @@
     <div class="tabs">
         <button class="tab-btn active" onclick="openTab(event, 'tab1')">General & Batch</button>
         <button class="tab-btn" onclick="openTab(event, 'tab2')">Map Execution</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab3'); loadTab3();">Configurar Columnas</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab4')">Instrucciones</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab3'); loadTab3();">Output columns</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab4'); loadTab4();">Filters</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab5')">How to</button>
    
     </div>
 
@@ -61,8 +62,8 @@
     </div>
     <div id="tab3" class="tab-content" style="display:none;">
         <h3>Editor de Plantilla (Etiquetado)</h3>
-    
-       <table border="1">
+        Enter the names of the fields you want the app to extract. Leave fields blank to ignore them. Filled fields will be used as column headers.
+       <table  id="config-table">
         <thead>
             <tr>
                 <th>Texto PDF</th>
@@ -74,14 +75,30 @@
         </table>
 
 </table>
-        <button onclick="saveTemplate()">Guardar etiquetas</button>
+        <button onclick="saveConfiguration()">Guardar etiquetas</button>
     </div>
     <div id="tab4" class="tab-content" style="display:none;">
+    <h3>Gestión de Filtros (CSV)</h3>
+    <table class="table table-striped" id="table-filters">
+        <thead>
+            <tr>
+                <th>Expresión a Buscar</th>
+                <th>Reemplazo</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="body-filtros">
+            </tbody>
+    </table>
+    <button type="button" class="btn btn-secondary" onclick="agregarFilaFiltro()">+ Añadir Fila</button>
+    <button type="button" class="btn btn-primary" onclick="saveFilters()">Guardar Filtros</button>
+</div>  
+    <div id="tab5" class="tab-content" style="display:none;">
         <h3>Instructions</h3>
         <p>Configura las rutas escribiendo la ruta absoluta en los campos anteriores. Los cambios se guardan automáticamente al salir del campo de texto.</p>
     </div>
 </div>
 <script>const csrftoken = '{{ csrf_token }}';</script>
-<script src="{% static 'js/script.js' %}?version=948"></script>
+<script src="{% static 'js/script.js' %}?version=666"></script>
 </body>
 </html>

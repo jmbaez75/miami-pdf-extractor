@@ -3,8 +3,6 @@ import os
 from pathlib import Path
 from django.conf import settings
 
-
-
 class PersistenceManager:
     CONFIG_FILE = Path(settings.BASE_DIR) / "config" / "app_config.json"
 
@@ -25,18 +23,19 @@ class PersistenceManager:
     @classmethod
     def _get_default_structure(cls):
         return {
-            "pdf_folder": None,         #A
-            "pdf_input": None,          #B    
-            "map_file_folder": None,    #C
-            "map_file": None,           #D
-            "mass_pdf_folder": None,    #E
-            "excel_folder": None,        #F
-            "sensitivity": None,        #F
-            
+            "pdf_folder": None,         
+            "pdf_input": None,          
+            "map_file_folder": None,    
+            "map_file": None,           
+            "mass_pdf_folder": None,    
+            "excel_folder": None,        
+            "sensitivity": None,        
         }
 
     @classmethod
     def save_paths(cls, **paths):
+        # Mantenemos la creación de la carpeta del JSON por seguridad, 
+        # pero nada más.
         cls.CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
         data = cls.load_paths()
         data.update(paths)
@@ -46,38 +45,16 @@ class PersistenceManager:
 
     @classmethod
     def ensure_configuration(cls):
+        # Esta función ahora es solo un "Lector y Validador"
         data = cls.load_paths()
-        check_paths = [ "mass_pdf_folder",
-                        "output_map_path",
-                        "excel_folder"]
+        check_paths = ["mass_pdf_folder", "output_map_path", "excel_folder"]
         
-        updated = False
         for key in check_paths:
             path_val = data.get(key)
-
-            if path_val:
-                path = Path(path_val).expanduser()
-                try:
-                    path.mkdir(parents=True, exist_ok=True)
-                    data[key] = str(path)
-                except Exception as e:
-                    raise ValueError(f"No se puede crear la ruta {path}: {e}")
             
+            # Solo verificamos. Si no existe, lanzamos error.
+            # Nada de input(), nada de bucles, nada de mkdir().
             if not path_val or not os.path.isdir(path_val):
-                print (f"recibido el valor:  {path_val}")
-                print(f"\nConfiguration required for: {key.replace('_', ' ')}")
- 
-                valid = False
-                while not valid:
-                    user_input = input("Enter a valid directory path: ").strip()
-                    if os.path.isdir(user_input):
-                        data[key] = user_input
-                        valid = True
-                        updated = True
-                    else:
-                        print("Invalid directory. Please try again.")
-        
-        if updated:
-            cls.save_paths(**data)
+                raise FileNotFoundError(f"Error de configuración: La ruta para '{key}' no existe o es inválida: {path_val}")
         
         return data

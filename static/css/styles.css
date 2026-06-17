@@ -18,7 +18,7 @@ body {
     padding: 40px;
     border-radius: 16px;
     width: 100%;
-    max-width: 550px;
+    max-width: 700px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
@@ -136,4 +136,55 @@ input[type=range] {
     padding: 10px 0;
     border-top: 1px solid #eee;
     margin-top: 15px;
+}
+
+Tienes toda la razón. Actualmente, tu tabla en la Tab 3 utiliza estilos del navegador por defecto, lo que genera un contraste visual muy brusco comparado con la estética cuidada ("Miami Sunset") que tiene el resto de tu formulario.
+
+Para que la tabla se sienta integrada, debe seguir las mismas reglas de bordes redondeados, tipografía y espacio que usas en tus input.
+
+Aquí tienes los estilos que debes añadir a tu styles.css:
+CSS
+
+/* --- Estilos para la Tabla de Etiquetas (Tab 3) --- */
+table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse; /* ELIMINA BORDES DOBLES */
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* Esto hace que el radio de borde funcione */
+}
+
+#tab3 th {
+    background-color: #f8f9fa;
+    padding: 9px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+#tab3 td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#tab3 tr:last-child td {
+    border-bottom: none;
+}
+
+/* Hacer que los inputs dentro de la tabla parezcan inputs de formulario */
+#tab3 .editable-header {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+
+#tab3 .editable-header:focus {
+    border-color: #ff5e62;
+    outline: none;
 }

@@ -13,20 +13,23 @@ function executeAction(type) {
     // Se sabe las pestaña asctiva todo el rato
     const activeTab = document.querySelector('.tab-content:not([style*="display: none"])');
     let payload = { type: type };
+    
+
     // 1. Aquí capturas lo que hay en pantalla
     
     if (activeTab.id === 'tab1') {
         payload.action = "screening",
-        csv_folder= document.getElementById('map_file_folder')?.value;
+        payload.map_file_folder = document.getElementById('map_file_folder')?.value;
         payload.sensitivity= document.getElementById('sensitivity')?.value || 5;
-        payload.map_file= csv_folder + document.getElementById('map_file')?.value;
-        payload.excel_out= document.getElementById('excel_out')?.value;
+        payload.map_file=  document.getElementById('map_file')?.value;
+        payload.excel_folder= document.getElementById('excel_folder')?.value;
         payload.mass_pdf_folder= document.getElementById('mass_pdf_folder')?.value
     }
     else if (activeTab.id=== 'tab2') {
+        console.log('ejecutando tab2');
         payload.action="mapping",
-        pdf_folder= document.getElementById('pdf_folder')?.value;
-        payload.pdf_input= pdf_folder + document.getElementById('pdf_input')?.value;
+        payload.pdf_folder= document.getElementById('pdf_folder')?.value;
+        payload.pdf_input= payload.pdf_folder+ document.getElementById('pdf_input')?.value;
         payload.map_out= document.getElementById('map_out').value
 
     };
@@ -40,8 +43,25 @@ function executeAction(type) {
         },
         body: JSON.stringify(payload) // <--- ¡AQUÍ ESTÁ EL CAMBIO!
     })
-    .then(response => response.json())
-    .then(data => console.log("Respuesta del servidor: " + data.status));
+    .then(response => {
+        // Intentamos leer el JSON siempre
+        return response.json().then(data => {
+            // Si el servidor respondió con 500 o 400, lanzamos el error
+            if (!response.ok) {
+                throw new Error(data.message || "Error desconocido del servidor");
+            }
+            return data;
+        });
+    })
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        alert("Mensaje: " + data.message); // Galleta de éxito
+    })
+    .catch(error => {
+        // AQUÍ ESTÁ TU GALLETA DE ERROR
+        console.error("Error capturado:", error);
+        alert("❌ ERROR: " + error.message); 
+    });
 }
 
 // Helper para obtener el token CSRF (esencial en Django)
@@ -129,38 +149,95 @@ function loadTab3() {
 }
 
 
-function guardarConfiguracion(){
-
-    let updates=[];
-
-
-    document
-    .querySelectorAll('.editable-header')
-    .forEach(input=>{
-
+function saveConfiguration() {
+    let updates = [];
+    // 1. Recolección de datos
+    document.querySelectorAll('.editable-header').forEach(input => {
         updates.push({
             index: input.dataset.index,
-            header_label: input.value
+            header_label: input.value // Esto captura lo que el usuario escribió
         });
-
     });
 
+    // 2. Feedback visual (opcional pero recomendado)
+    const btn = event.target;
+    btn.disabled = true; // Evita clics dobles
+    btn.innerText = "Guardando...";
 
-    fetch('/fburo/save-template-config/',{
-
-        method:'POST',
-
-        headers:{
-            'Content-Type':'application/json',
-            'X-CSRFToken':getCookie('csrftoken')
+    fetch('/fburo/save-template-config/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
         },
-
-        body:JSON.stringify({
-            updates:updates
-        })
-
+        body: JSON.stringify({ updates: updates })
     })
-    .then(r=>r.json())
-    .then(data=>console.log(data));
+    .then(r => r.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        if(data.status === 'ok') {
+            alert("Cambios guardados correctamente.");
+        } else {
+            alert("Error al guardar: " + (data.message || "Desconocido"));
+        }
+    })
+    .catch(error => {
+        console.error("Error en el fetch:", error);
+        alert("Error de conexión con el servidor.");
+    })
+    .finally(() => {
+        // Restaurar estado del botón
+        btn.disabled = false;
+        btn.innerText = "Guardar etiquetas";
+    });
+}
 
+/******************  SISTEMA DE FILTROS ***************************/
+
+// 1. Cargar datos del CSV al entrar en la tab
+function loadTab4() {
+    fetch('/fburo/get-filters/') // Asegúrate de tener esta URL en tus urls.py
+    .then(r => r.json())
+    .then(data => {
+        const tbody = document.getElementById('body-filtros');
+        tbody.innerHTML = "";
+        data.forEach(row => {
+            tbody.innerHTML += `
+            <tr>
+                <td><input type="text" name="original[]" value="${row.texto_original}" class="form-control"></td>
+                <td><input type="text" name="reemplazo[]" value="${row.texto_reemplazo}" class="form-control"></td>
+                <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Eliminar</button></td>
+            </tr>`;
+        });
+    });
+}
+
+// 2. Función para añadir fila manualmente
+function agregarFilaFiltro() {
+    const tbody = document.getElementById('body-filtros');
+    tbody.insertAdjacentHTML('beforeend', `
+        <tr>
+            <td><input type="text" name="original[]" class="form-control"></td>
+            <td><input type="text" name="reemplazo[]" class="form-control"></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Eliminar</button></td>
+        </tr>`);
+}
+
+// 3. Guardar filtros
+function saveFilters() {
+    let originals = Array.from(document.querySelectorAll('input[name="original[]"]')).map(i => i.value);
+    let reemplazos = Array.from(document.querySelectorAll('input[name="reemplazo[]"]')).map(i => i.value);
+
+    fetch('/fburo/save-filters/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ original: originals, reemplazo: reemplazos })
+    })
+    .then(r => r.json())
+    .then(data => {
+        alert(data.message || "Guardado correctamente");
+    });
 }
