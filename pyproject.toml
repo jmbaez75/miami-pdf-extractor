@@ -10,6 +10,7 @@ dependencies = [
     "pandas>=3.0.3",
     "pdfminer-six>=20260107",
     "waitress>=3.0.2",
+    "whitenoise>=6.12.0",
 ]
 
 [dependency-groups]
