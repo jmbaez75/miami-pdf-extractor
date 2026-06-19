@@ -3,7 +3,7 @@ WHEN YOU HAVE TO READ DATA FROM THOUSANDS OF SIMILAR PDFs.....
 
 ![MPE Interface](assets/logo.png)
 
-🌴 MIAMI PDF Extractor (M.P.E) - TA feasible solution for batch PDF data extraction.
+🌴 MIAMI PDF Extractor (M.P.E) - TA feasible solution for batch PDF data extraction. 
 
 Appimage single file available in releases https://github.com/jmbaez75/miami-pdf-extractor/releases
 
