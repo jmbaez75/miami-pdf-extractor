@@ -44,6 +44,10 @@
                        oninput="document.getElementById('val-sensitivity').innerText = this.value" onchange="updateConfig('sensitivity', this.value)">
 
         <button onclick="executeAction('batch')">Execute Batch</button>
+        <div id="progress-container" style="display:none; margin-top:15px;">
+            <progress id="batch-progress-bar" value="0" max="100" style="width:100%;"></progress>
+            <span id="batch-progress-text">0%</span>
+        </div>
     </div>
 
     <div id="tab2" class="tab-content" style="display:none;">

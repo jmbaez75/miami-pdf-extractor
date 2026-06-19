@@ -1,6 +1,7 @@
 import json
 import os 
 import pandas as pd
+import threading
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -12,6 +13,11 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from extraction.processor import MapExtractor
 from extraction.processor import MapMassReader
+
+BATCH_PROGRESS = {'status': 'idle', 'current': 0, 'total': 0, 'result': None, 'message': ''}
+BATCH_LOCK = threading.Lock()
+
+
 @ensure_csrf_cookie
 def show_interface(request):
     # Cargamos las rutas desde tu archivo JSON
@@ -65,12 +71,28 @@ def execute_path(request):
                 reader.mass_pdf_folder = data.get('mass_pdf_folder')
                 reader.map_path = data.get('map_file_folder')+ data.get('map_file')
                 reader.check_rutes() 
-                excel_path = reader.run_batch()
+                
+                # this line executes the batch job
+                # but is commented because it is executed in a separate thread                                
+                # excel_path = reader.run_batch()
+                # it is replaced by threading.Thread(target=_run_batch_job, args=(reader,), daemon=True).start()
+
+                # Actualizamos el estado del lote. si esta en progresoquit
+                with BATCH_LOCK:
+                    BATCH_PROGRESS.update({'status': 'running', 'current': 0, 'total': 0, 'result': None, 'message': ''})
+                
+                # the next line do the next things. Explaineds:
+                # 1. Run the batch job in a separate thread (_run_batch_job)
+                # 2. Run the progress_cb function in the main thread
+                
+                threading.Thread(target=_run_batch_job, args=(reader,), daemon=True).start()
                 
             except Exception as e:
                 error_message = str(e)+" "+str(type(e))+" "+str(e.__traceback__)
                 return JsonResponse({'status': 'error', 'message': error_message}, status=500)    
-            return JsonResponse({'status': 'success', 'message': f'Lote procesado. Excel en {excel_path}'})  
+            
+            
+            return JsonResponse({'status': 'started', 'message': 'Lote iniciado, procesando PDFs...'})  
             
        elif data.get('action') == 'mapping':
             try:
@@ -173,3 +195,37 @@ def save_filters(request):
         return JsonResponse({'status': 'ok', 'message': 'Filtros guardados correctamente'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+##### Functions for batch processing ####
+# includes:
+# 1. threading
+# 2. progress bar
+# 3. error handling
+
+def _run_batch_job(reader):
+    
+    def progress_cb(current, total):
+        with BATCH_LOCK:
+            BATCH_PROGRESS['current'] = current
+            BATCH_PROGRESS['total'] = total
+
+    try:
+        # this line is the one that does the work
+        # 1. Run the batch job
+        # 2. Run the progress_cb function
+        # 3. Return the result
+        # 4. Update the progress bar
+
+        excel_path = reader.run_batch(progress_callback=progress_cb)
+        with BATCH_LOCK:
+            BATCH_PROGRESS['status'] = 'done'
+            BATCH_PROGRESS['result'] = excel_path
+    except Exception as e:
+        with BATCH_LOCK:
+            BATCH_PROGRESS['status'] = 'error'
+            BATCH_PROGRESS['message'] = str(e)
+
+
+def get_batch_progress(request):
+    with BATCH_LOCK:
+        return JsonResponse(dict(BATCH_PROGRESS))

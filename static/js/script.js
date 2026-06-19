@@ -55,7 +55,12 @@ function executeAction(type) {
     })
     .then(data => {
         console.log("Respuesta del servidor:", data);
-        alert("Mensaje: " + data.message); // Galleta de éxito
+
+         if (data.status === 'started') {
+            startProgressPolling(); // lectura On going
+         } else {
+            alert("Mensaje: " + data.message);// Galleta de éxito
+        } 
     })
     .catch(error => {
         // AQUÍ ESTÁ TU GALLETA DE ERROR
@@ -240,4 +245,50 @@ function saveFilters() {
     .then(data => {
         alert(data.message || "Guardado correctamente");
     });
+}
+
+let progressInterval = null;
+
+function startProgressPolling() {
+    const container = document.getElementById('progress-container');
+    const bar = document.getElementById('batch-progress-bar');
+    const text = document.getElementById('batch-progress-text');
+    const btn = document.querySelector('#tab1 button[onclick*="batch"]');
+
+    container.style.display = 'block';
+    bar.value = 0;
+    text.innerText = "Iniciando...";
+    btn.disabled = true;
+
+    if (progressInterval) clearInterval(progressInterval);
+
+    progressInterval = setInterval(() => {
+        fetch('/fburo/batch-progress/')
+            .then(r => r.json())
+            .then(job => {
+                const total = job.total || 0;
+                const current = job.current || 0;
+                const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+
+                bar.value = pct;
+                text.innerText = total > 0 ? `${current}/${total} (${pct}%)` : "Preparando...";
+
+                if (job.status === 'done') {
+                    clearInterval(progressInterval);
+                    text.innerText = "Completado ✅";
+                    btn.disabled = false;
+                    alert("Lote procesado. Excel en " + job.result);
+                } else if (job.status === 'error') {
+                    clearInterval(progressInterval);
+                    text.innerText = "Error ❌";
+                    btn.disabled = false;
+                    alert("❌ ERROR: " + job.message);
+                }
+            })
+            .catch(err => {
+                clearInterval(progressInterval);
+                btn.disabled = false;
+                console.error("Error consultando progreso:", err);
+            });
+    }, 1000);
 }

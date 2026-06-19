@@ -188,3 +188,8 @@ table {
     border-color: #ff5e62;
     outline: none;
 }
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

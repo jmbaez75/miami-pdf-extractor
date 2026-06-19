@@ -10,5 +10,5 @@ urlpatterns = [
     path('save-template-config/', views.save_template_config, name='save_template_config'),
     path('get-filters/', views.get_filters, name='get_filters'),
     path('save-filters/', views.save_filters, name='save_filters'),
-   
+    path('batch-progress/', views.get_batch_progress, name='batch_progress'),
 ]

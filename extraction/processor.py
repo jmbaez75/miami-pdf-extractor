@@ -175,18 +175,20 @@ class MapMassReader:
             self._match_line(linea, datos)
         return datos
 
-    def run_batch(self):
+    def run_batch(self, progress_callback=None):
         if not os.path.exists(self.mass_pdf_folder):
             raise FileNotFoundError(f"Carpeta PDF no encontrada: {self.mass_pdf_folder}")
 
         pdf_files = [f for f in os.listdir(self.mass_pdf_folder) if f.lower().endswith('.pdf')]
         if not pdf_files:
             raise FileNotFoundError(f"No hay PDFs en: {self.mass_pdf_folder}")
-
-        results = [
-            self._process_pdf(os.path.join(self.mass_pdf_folder, f), f)
-            for f in pdf_files
-        ]
+        total = len(pdf_files)                              # how long is the batch of PDFs
+        results = []                                        # list to store the results        
+        for i, f in enumerate(pdf_files):          # iterate over the pdf_files:
+            results.append(self._process_pdf(os.path.join(self.mass_pdf_folder, f), f))
+            if progress_callback:
+                progress_callback(i, total)
+            
 
         # os.makedirs(self.excel_folder, exist_ok=True) !!!!! peligro para la ciberseguridad
         output_path = os.path.join(
