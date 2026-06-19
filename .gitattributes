@@ -1,0 +1,8 @@
+# Excluir archivos de configuración, build y templates de las estadísticas
+*.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
+*.sh linguist-vendored
+*.spec linguist-vendored
+pyproject.toml linguist-vendored
+manage.py linguist-vendored
