@@ -1,4 +1,6 @@
 
+WHEN YOU HAVE TO READ DATA FROM THOUSANDS OF SIMILAR PDFs.....
+
 ![MPE Interface](assets/logo.png)
 
 🌴 Miami PDF Extractor (M.P.E)

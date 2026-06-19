@@ -39,7 +39,7 @@
         <label>Excel output path:</label>
         <input type="text" id="excel_folder" value="{{excel_folder}}" onchange="updateConfig('excel_folder', this.value)">
         
-        <label for="sensitivity">Sensibilidad (Holgura: <span id="val-sensitivity">5</span>px):</label>
+        <label for="sensitivity">Sensitivity (Holgura: <span id="val-sensitivity">5</span>px):</label>
         <input type="range" id="sensitivity" min="0" max="50" value="{{sensitivity}}"
                        oninput="document.getElementById('val-sensitivity').innerText = this.value" onchange="updateConfig('sensitivity', this.value)">
 
@@ -51,8 +51,8 @@
     </div>
 
     <div id="tab2" class="tab-content" style="display:none;">
-        <h3>Single Map Execution</h3>
         
+        <h3>Single Map Execution</h3>        
         <label>PDF to map (Path):</label> 
         <i>pdf folder</i><br>
         <input type="text" id="pdf_folder" value="{{pdf_folder}}" onchange="updateConfig('pdf_folder', this.value)" placeholder="/home/usuario/tu_carpeta">
@@ -65,13 +65,13 @@
     <button onclick="executeAction('single')">Execute Mapping</button>
     </div>
     <div id="tab3" class="tab-content" style="display:none;">
-        <h3>Editor de Plantilla (Etiquetado)</h3>
+        <h3>Map Editor (Tags)</h3>
         Enter the names of the fields you want the app to extract. Leave fields blank to ignore them. Filled fields will be used as column headers.
        <table  id="config-table">
         <thead>
             <tr>
-                <th>Texto PDF</th>
-                <th>Nombre columna</th>
+                <th>PDF text in map</th>
+                <th>Columne Name</th>
             </tr>
         </thead>
         <tbody id="config-body">
@@ -79,16 +79,19 @@
         </table>
 
 </table>
-        <button onclick="saveConfiguration()">Guardar etiquetas</button>
+        <button onclick="saveConfiguration()">Save Tags</button>
     </div>
     <div id="tab4" class="tab-content" style="display:none;">
-    <h3>Gestión de Filtros (CSV)</h3>
+    <h3>Fileter management (CSV)</h3>
+       
+    If certain text is finded in the PDF, it will be replaced by the replacement text.<br/>
+        
     <table class="table table-striped" id="table-filters">
         <thead>
             <tr>
-                <th>Expresión a Buscar</th>
-                <th>Reemplazo</th>
-                <th>Acción</th>
+                <th>Seek Text</th>
+                <th>Replacement</th>
+                <th></th>
             </tr>
         </thead>
         <tbody id="body-filtros">
