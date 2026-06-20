@@ -7,7 +7,7 @@
 ### *WHEN YOU HAVE TO READ DATA FROM THOUSANDS OF SIMILAR PDFs...*
 
 <p align="center">
-  <img src="static/images/screeshot.png" alt="MIAMI PDF Extractor screenshot" width="80%">
+  <img src="static/images/screenshot.png" alt="MIAMI PDF Extractor screenshot" width="80%">
 </p>
 
 **M.P.E** is a feasible, user-friendly solution for batch PDF data extraction. Built with a clean UI and robust backend, it eliminates manual data entry, saving you time and reducing human error.
