@@ -4,7 +4,7 @@
   <img src="assets/logo.png" alt="MPE Logo" width="150"/>
 </p>
 
-### *WHEN YOU HAVE TO READ DATA FROM THOUSANDS OF <u>SIMILAR</u> PDFs...*
+### *WHEN YOU HAVE TO READ MASSIVE DATA FROM THOUSANDS OF <u>SIMILAR</u> PDFs...*
 
 <p align="center">
   <img src="static/images/screenshot.png" alt="MIAMI PDF Extractor screenshot" width="80%">
