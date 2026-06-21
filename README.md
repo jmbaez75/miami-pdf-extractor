@@ -12,7 +12,7 @@
 
 **M.P.E** is a feasible, user-friendly solution for batch PDF data extraction. Built with a clean UI and robust backend, it eliminates manual data entry, saving you time and reducing human error.
 
-> ⚠️ **Important:** This program is specifically designed to map and process batches of highly similar documents, such as bank statements or payroll records. Several mapping configurations are supported. Several mapping configurations are available to handle different document layouts.
+> ⚠️ **Important:** This program is specifically designed to map and process batches of highly SIMILAR documents, such as bank statements or payroll records. Anyway, you can mapping generating and handling easily different document layouts.
 
 ---
 
