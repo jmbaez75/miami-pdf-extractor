@@ -14,7 +14,9 @@ def run():
         static_dir = os.path.join(os.path.dirname(__file__), 'staticfiles')
     
     # El prefix es OBLIGATORIO para que el navegador encuentre /static/...
+    
     application = WhiteNoise(application, root=static_dir, prefix='static/')
+    
     print(f"Servidor iniciado. Sirviendo estáticos desde: {static_dir}")
 
     try:
