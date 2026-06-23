@@ -16,47 +16,21 @@
 </div>
 <div class="container">
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'tab1')">General & Batch</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab2')">Map Execution</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab3'); loadTab3();">Output columns</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab4'); loadTab4();">Filters</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab5')">How to</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab2')">1.Map Generation</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab1')">2.PDF Batch Processing</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab3'); loadTab3();">3.Output columns</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab4'); loadTab4();">4.Filters</button>
+        <button class="tab-btn active" onclick="openTab(event, 'tab5')">5.How to</button>
    
-    </div>
-
-    <div id="tab1" class="tab-content">
-        <h3>Batch Processing</h3>
-
-        <label>csv folder (finish with /):</label>
-        <input type="text" accept=".csv" id="map_file_folder" value="{{map_file_folder}}" onchange="updateConfig('map_file_folder', this.value)">
-        
-        <label>csv file (.csv):</label>
-        <input type="text" accept=".csv" id="map_file" value="{{map_file}}" onchange="updateConfig('map_file', this.value)">
-        
-        <label>Massive PDF folder:</label>
-        <input type="text" id="mass_pdf_folder" value="{{mass_pdf_folder}}" onchange="updateConfig('mass_pdf_folder', this.value)">
-        
-        <label>Excel output path:</label>
-        <input type="text" id="excel_folder" value="{{excel_folder}}" onchange="updateConfig('excel_folder', this.value)">
-        
-        <label for="sensitivity">Sensitivity (Holgura: <span id="val-sensitivity">5</span>px):</label>
-        <input type="range" id="sensitivity" min="0" max="50" value="{{sensitivity}}"
-                       oninput="document.getElementById('val-sensitivity').innerText = this.value" onchange="updateConfig('sensitivity', this.value)">
-
-        <button onclick="executeAction('batch')">Execute Batch</button>
-        <div id="progress-container" style="display:none; margin-top:15px;">
-            <progress id="batch-progress-bar" value="0" max="100" style="width:100%;"></progress>
-            <span id="batch-progress-text">0%</span>
-        </div>
     </div>
 
     <div id="tab2" class="tab-content" style="display:none;">
         
-        <h3>Single Map Execution</h3>        
-        <label>PDF to map (Path):</label> 
+        <h3>Single Map Generation</h3>        
+        <label>Select a pdf sample document to generate a map.</label> 
         <i>pdf folder</i><br>
         <input type="text" id="pdf_folder" value="{{pdf_folder}}" onchange="updateConfig('pdf_folder', this.value)" placeholder="/home/usuario/tu_carpeta">
-        <i>File name</i><br>
+        <i>pdf file name</i><br>
         <input type="text" id="pdf_input" value="{{pdf_input}}" onchange="updateConfig('pdf_input', this.value)" placeholder="/home/usuario/tu_carpeta">
         <label>Output map path (Folder):</label>
         <input type="text" id="map_out" value="{{output_map_path}}" onchange="updateConfig('output_map_path', this.value)" placeholder="/home/usuario/tu_carpeta">
@@ -64,6 +38,39 @@
         
     <button onclick="executeAction('single')">Execute Mapping</button>
     </div>
+
+
+    <div id="tab1" class="tab-content" style="display:none;">
+        <h3>PDF Batch Processing</h3>
+
+         
+        <label>Route to .csv map folder (finish with /):</label><span style="font-size: 12px; font-style: italic;">Generate specific maps in "Single map generation" tab</span>
+        <input type="text" accept=".csv" id="map_file_folder" value="{{map_file_folder}}" onchange="updateConfig('map_file_folder', this.value)">
+        
+        <label>Name of .csv map file (.csv)*:</label>
+        <input type="text" accept=".csv" id="map_file" value="{{map_file}}" onchange="updateConfig('map_file', this.value)">
+       
+        
+        <label>Massive PDF folder:</label>
+        <input type="text" id="mass_pdf_folder" value="{{mass_pdf_folder}}" onchange="updateConfig('mass_pdf_folder', this.value)">
+        
+        <label>Excel output path:</label>
+        <input type="text" id="excel_folder" value="{{excel_folder}}" onchange="updateConfig('excel_folder', this.value)">
+        
+        <label for="sensitivity">Tolerance: <span id="val-sensitivity">{{sensitivity}}</span></label>
+        <span style="font-size: 12px; font-style: italic;">Margin units relative to the map coordinates</span>
+
+        <input type="range" id="sensitivity" min="0" max="50" value="{{sensitivity}}"
+                       oninput="document.getElementById('val-sensitivity').innerText = this.value" onchange="updateConfig('sensitivity', this.value)">
+        
+        <button onclick="executeAction('batch')">Execute Batch</button>
+        <div id="progress-container" style="display:none; margin-top:15px;">
+            <progress id="batch-progress-bar" value="0" max="100" style="width:100%;"></progress>
+            <span id="batch-progress-text">0%</span>
+        </div>
+    </div>
+
+
     <div id="tab3" class="tab-content" style="display:none;">
         <h3>Map Editor (Tags)</h3>
         Enter the names of the fields you want the app to extract. Leave fields blank to ignore them. Filled fields will be used as column headers.
@@ -100,7 +107,7 @@
     <button type="button" class="btn btn-secondary" onclick="agregarFilaFiltro()">+ Añadir Fila</button>
     <button type="button" class="btn btn-primary" onclick="saveFilters()">Guardar Filtros</button>
 </div>  
-    <div id="tab5" class="tab-content" style="display:none;">
+    <div id="tab5" class="tab-content" style="">
         <h3>Instructions</h3>
         
         <div class="instructions-body">

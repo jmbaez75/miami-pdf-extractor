@@ -1,18 +1,22 @@
 <div class="instructions-body">
-    <h3>1. General & Batch (General & Batch)</h3>
-    <p>The control center for processing your files.</p>
+
+    <h3>1. Single map generation</h3>
+    <p>Creates the reference map required for extraction.</p>
+    <ul>
+        <li><strong>Setup:</strong> Provide the path to a sample PDF that represents the layout of your documents.</li>
+        <li><strong>Execution:</strong> Click <strong>"Execute Mapping"</strong>. This scans the PDF layout and generates the <code>mapa_resultado.csv</code> file.</li>
+        <li>You can store differentet maps for each kind of document.</li>
+    </ul>
+
+
+    <h3>2. PDF Batch Processing</h3>
+    <p>The control center for processing your masive batch of PDF files.</p>
     <ul>
         <li><strong>Paths:</strong> Set the absolute paths for your CSV map, input PDFs, and Excel output.</li>
         <li><strong>Sensitivity:</strong> Adjust the slider (px tolerance) if the extractor struggles to match data due to layout variations.</li>
         <li><strong>Execution:</strong> Click <strong>"Execute Batch"</strong> to process all PDFs in your folder based on your configuration.</li>
     </ul>
 
-    <h3>2. Map Execution (Map Execution)</h3>
-    <p>Creates the reference map required for extraction.</p>
-    <ul>
-        <li><strong>Setup:</strong> Provide the path to a sample PDF that represents the layout of your documents.</li>
-        <li><strong>Execution:</strong> Click <strong>"Execute Mapping"</strong>. This scans the PDF layout and generates the <code>mapa_resultado.csv</code> file.</li>
-    </ul>
 
     <h3>3. Output Columns (Output columns)</h3>
     <p>Defines the structure of your final Excel report.</p>

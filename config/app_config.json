@@ -5,7 +5,7 @@
     "map_file": "mapa_abonos_sabadell.csv",
     "mass_pdf_folder": "/home/administrador/datos_prueba/PDF",
     "excel_folder": "/home/administrador/datos_prueba/fffff",
-    "sensitivity": "42",
+    "sensitivity": "28",
     "output_map_path": "/home/administrador/datos_prueba",
     "last_map_route_pdf": "/home/administrador/datos_prueba/g/home/administrador/datos_prueba"
 }
