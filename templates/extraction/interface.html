@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Miami Data Extractor</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.2">
     <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}?v=2">    
 </head>
 <body>
@@ -26,31 +26,43 @@
 
     <div id="tab2" class="tab-content" style="display:none;">
         
-        <h3>Single Map Generation</h3>        
-        <label>Select a pdf sample document to generate a map.</label> 
+        <h3>Single Map Generation</h3>  
+             
+        <div class="section_head">Select a pdf sample document to generate a map.</div> 
+        <hr>
         <i>pdf folder</i><br>
         <input type="text" id="pdf_folder" value="{{pdf_folder}}" onchange="updateConfig('pdf_folder', this.value)" placeholder="/home/usuario/tu_carpeta">
         <i>pdf file name</i><br>
         <input type="text" id="pdf_input" value="{{pdf_input}}" onchange="updateConfig('pdf_input', this.value)" placeholder="/home/usuario/tu_carpeta">
+        <div class="section_head">Select a route four your output mipe file</div> 
+        <hr>
         <label>Output map path (Folder):</label>
         <input type="text" id="map_out" value="{{output_map_path}}" onchange="updateConfig('output_map_path', this.value)" placeholder="/home/usuario/tu_carpeta">
 
         
     <button onclick="executeAction('single')">Execute Mapping</button>
+
+        <br/><br/><br/>
+         <span style="font-size: 12px; font-style: italic;">This tab generates a map for a single PDF file.</span>
     </div>
 
 
     <div id="tab1" class="tab-content" style="display:none;">
         <h3>PDF Batch Processing</h3>
-
-         
-        <label>Route to .csv map folder (finish with /):</label><span style="font-size: 12px; font-style: italic;">Generate specific maps in "Single map generation" tab</span>
+        <div class="section_head">
+           Define the path to your map with named columns
+        </div>
+        <hr>
+        <label>Route to .csv map folder (finish with /):</label>
         <input type="text" accept=".csv" id="map_file_folder" value="{{map_file_folder}}" onchange="updateConfig('map_file_folder', this.value)">
         
         <label>Name of .csv map file (.csv)*:</label>
         <input type="text" accept=".csv" id="map_file" value="{{map_file}}" onchange="updateConfig('map_file', this.value)">
-       
         
+        <div class="section_head">
+           Define the path for your pdf batch folder and for your output file
+        </div>
+        <hr>
         <label>Massive PDF folder:</label>
         <input type="text" id="mass_pdf_folder" value="{{mass_pdf_folder}}" onchange="updateConfig('mass_pdf_folder', this.value)">
         
@@ -58,8 +70,12 @@
         <input type="text" id="excel_folder" value="{{excel_folder}}" onchange="updateConfig('excel_folder', this.value)">
         
         <label for="sensitivity">Tolerance: <span id="val-sensitivity">{{sensitivity}}</span></label>
+        
+         <div class="section_head">
+           Define the area tolerance arround a an element in the map.
+        </div>
+        <hr>
         <span style="font-size: 12px; font-style: italic;">Margin units relative to the map coordinates</span>
-
         <input type="range" id="sensitivity" min="0" max="50" value="{{sensitivity}}"
                        oninput="document.getElementById('val-sensitivity').innerText = this.value" onchange="updateConfig('sensitivity', this.value)">
         
@@ -73,8 +89,13 @@
 
     <div id="tab3" class="tab-content" style="display:none;">
         <h3>Map Editor (Tags)</h3>
-        Enter the names of the fields you want the app to extract. Leave fields blank to ignore them. Filled fields will be used as column headers.
-       <table  id="config-table">
+        <div class="explanations">
+        Each element in <b>left column</b> is a element in your map included in tab "PDF batch procesing".Be sure you defined a right path to a the .csv map file.
+        </div>
+        <div class="explanations">
+        The <b>right column</b> indicates that elements in the same position in the batch files willl be extracted in a column with the choosen name. Only elements in the named positions are extracted.
+        </div>      
+        <table  id="config-table">
         <thead>
             <tr>
                 <th>PDF text in map</th>

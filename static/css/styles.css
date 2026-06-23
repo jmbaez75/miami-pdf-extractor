@@ -193,3 +193,18 @@ button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.section_head{
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff5e62;
+}
+
+.explanations{
+    font-size: 14px;
+    font-style: italic;
+    /*salto entre parrafos*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
