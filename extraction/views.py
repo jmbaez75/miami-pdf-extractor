@@ -92,7 +92,7 @@ def execute_path(request):
                 return JsonResponse({'status': 'error', 'message': error_message}, status=500)    
             
             
-            return JsonResponse({'status': 'started', 'message': 'Lote iniciado, procesando PDFs...'})  
+            return JsonResponse({'status': 'started', 'message': 'batch job started. Check the progress...'})  
             
        elif data.get('action') == 'mapping':
             try:
@@ -107,7 +107,7 @@ def execute_path(request):
                 return JsonResponse({'status': 'error', 'message': mensaje}, status=500)
                
        
-    return JsonResponse({'status': 'error', 'message': 'Solo se permiten peticiones POST'}, status=400) 
+    return JsonResponse({'status': 'error', 'message': 'Only POST request allowed'}, status=400) 
 #### Edición de de CSV de MAPEO #####
 def get_template_data(request):
     # Esto busca el CSV que generó el MapExtractor en Tab 1
@@ -128,7 +128,7 @@ def save_template_config(request):
         path = os.path.join(config.get('map_file_folder'), config.get('map_file'))
         
         if not os.path.exists(path):
-            return JsonResponse({'status': 'error', 'message': 'Archivo CSV no encontrado'}, status=404)
+            return JsonResponse({'status': 'error', 'message': 'CSV file not found'}, status=404)
         
         # --- AQUÍ LA SOLUCIÓN ---
         # Forzamos la columna 'header_label' como string para evitar el error de float64
@@ -149,7 +149,7 @@ def save_template_config(request):
         
     except Exception as e:
         # Esto te ayudará a ver el error real en la consola de Django si algo falla
-        print(f"Error crítico guardando configuración: {e}")
+        print(f"Critical errror saving configuration: {e}")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
 #### Gestión del CSV de Filtros (Tab 4) ####
@@ -192,7 +192,7 @@ def save_filters(request):
         })
         
         df.to_csv(path, index=False, encoding='utf-8')
-        return JsonResponse({'status': 'ok', 'message': 'Filtros guardados correctamente'})
+        return JsonResponse({'status': 'ok', 'message': 'Filter saved successfully'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     

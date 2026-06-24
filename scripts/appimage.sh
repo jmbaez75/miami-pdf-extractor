@@ -6,7 +6,7 @@ set -ex  # -e: para parar si hay error, -x: para mostrar cada comando (verbose)
 DIR_BASE="./"
 APP_DIR="$DIR_BASE/final_app"
 TOOL="appimagetool"
-NOMBRE_APP="Miami_1.0.AppImage"
+NOMBRE_APP="Miami_1.1.AppImage"
 
 echo "--- 1. Preparando entorno AppImage ---"
 cd "$DIR_BASE"
@@ -23,6 +23,7 @@ chmod +x "$APP_DIR/AppRun"
 # 4. Asegurar icono con extensión correcta
 cp "$DIR_BASE/favicon.ico" "$APP_DIR/.DirIcon.png" || cp "$APP_DIR/miami.png" "$APP_DIR/.DirIcon.png"
 
+
 # 5. Descargar appimagetool si no existe
 if [ ! -f "$TOOL" ]; then
     echo "--- Descargando appimagetool ---"
@@ -36,7 +37,7 @@ cp "$DIR_BASE/favicon.ico" "$APP_DIR/.DirIcon" || cp "$APP_DIR/miami.png" "$APP_
 # 6. Crear el .desktop apuntando al nombre "base" del icono
 cat <<EOF > "$APP_DIR/miami.desktop"
 [Desktop Entry]
-Name=Miami 1.0
+Name=Miami 1.1
 Exec=AppRun
 Icon=.DirIcon
 Type=Application

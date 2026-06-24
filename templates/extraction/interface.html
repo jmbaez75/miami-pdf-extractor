@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Miami Data Extractor</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.2">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.3">
     <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}?v=2">    
 </head>
 <body>
@@ -94,7 +94,13 @@
         </div>
         <div class="explanations">
         The <b>right column</b> indicates that elements in the same position in the batch files willl be extracted in a column with the choosen name. Only elements in the named positions are extracted.
-        </div>      
+        </div>  
+        <div>
+
+            <button class="save-btn" onclick="saveConfiguration()">Save Tags</button>    
+
+        </div>
+        
         <table  id="config-table">
         <thead>
             <tr>
@@ -106,8 +112,8 @@
         </tbody>
         </table>
 
-</table>
-        <button onclick="saveConfiguration()">Save Tags</button>
+        </table>
+        
     </div>
     <div id="tab4" class="tab-content" style="display:none;">
     <h3>Fileter management (CSV)</h3>
@@ -125,8 +131,8 @@
         <tbody id="body-filtros">
             </tbody>
     </table>
-    <button type="button" class="btn btn-secondary" onclick="agregarFilaFiltro()">+ Añadir Fila</button>
-    <button type="button" class="btn btn-primary" onclick="saveFilters()">Guardar Filtros</button>
+    <button class="save-btn" type="button" class="btn btn-secondary" onclick="agregarFilaFiltro()">+ add row</button>
+    <button class="save-btn" type="button" class="btn btn-primary" onclick="saveFilters()">Save filters</button>
 </div>  
     <div id="tab5" class="tab-content" style="">
         <h3>Instructions</h3>

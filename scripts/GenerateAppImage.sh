@@ -1,9 +1,12 @@
 #!/bin/bash
 set -e  # para que si algo falla, se detenga en seco
-
 echo "--- Copiando proyecto a /tmp ---"
 rm -rf /tmp/construccion_fburo
 cp -r /home/administrador/Proyectos_Python/FBuro /tmp/construccion_fburo
+APP_DIR="/tmp/construccion_fburo"
+cp "./appimage.sh" "$APP_DIR/appimage.sh"
+cp "./compile.sh" "$APP_DIR/compile.sh"
+
 
 cd /tmp/construccion_fburo
 

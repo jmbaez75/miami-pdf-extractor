@@ -65,12 +65,12 @@ class MapExtractor:
         """Saves the layout template to the configured output directory."""
         # 1. Validar datos
         if not self.data:
-            raise ValueError("Error: No se extrajo ningún dato. El archivo PDF podría estar vacío o ser una imagen.")
+            raise ValueError("Error: No data extracted. PDF could be empty or be an immage.")
         print(self.output_map_dir)
         print(os.path.exists(self.output_map_dir))
         # 2. Validar directorio una sola vez
         if not os.path.exists(self.output_map_dir):
-            raise FileNotFoundError(f"La carpeta de salida no existe: {self.output_map_dir}")
+            raise FileNotFoundError(f"Output folder not found: {self.output_map_dir}")
 
         full_path = os.path.join(self.output_map_dir, filename)
         df = pd.DataFrame(self.data)
@@ -177,11 +177,11 @@ class MapMassReader:
 
     def run_batch(self, progress_callback=None):
         if not os.path.exists(self.mass_pdf_folder):
-            raise FileNotFoundError(f"Carpeta PDF no encontrada: {self.mass_pdf_folder}")
+            raise FileNotFoundError(f"PDF folder not found: {self.mass_pdf_folder}")
 
         pdf_files = [f for f in os.listdir(self.mass_pdf_folder) if f.lower().endswith('.pdf')]
         if not pdf_files:
-            raise FileNotFoundError(f"No hay PDFs en: {self.mass_pdf_folder}")
+            raise FileNotFoundError(f"There are no PDFs in the folder: {self.mass_pdf_folder}")
         total = len(pdf_files)                              # how long is the batch of PDFs
         results = []                                        # list to store the results        
         for i, f in enumerate(pdf_files):          # iterate over the pdf_files:

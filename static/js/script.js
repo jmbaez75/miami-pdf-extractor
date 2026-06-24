@@ -48,23 +48,23 @@ function executeAction(type) {
         return response.json().then(data => {
             // Si el servidor respondió con 500 o 400, lanzamos el error
             if (!response.ok) {
-                throw new Error(data.message || "Error desconocido del servidor");
+                throw new Error(data.message || "Server unknown error");
             }
             return data;
         });
     })
     .then(data => {
-        console.log("Respuesta del servidor:", data);
+        console.log("RServer response:", data);
 
          if (data.status === 'started') {
             startProgressPolling(); // lectura On going
          } else {
-            alert("Mensaje: " + data.message);// Galleta de éxito
+            alert("Message: " + data.message);// Galleta de éxito
         } 
     })
     .catch(error => {
         // AQUÍ ESTÁ TU GALLETA DE ERROR
-        console.error("Error capturado:", error);
+        console.error("Catched error:", error);
         alert("❌ ERROR: " + error.message); 
     });
 }
@@ -98,7 +98,7 @@ function updateConfig(key, value) {
         body: JSON.stringify({ 'key': key, 'value': value })
     })
     .then(response => response.json())
-    .then(data => console.log("Guardado:", data));
+    .then(data => console.log("Saved:", data));
 }
 
 function openTab(evt, tabName) {
@@ -122,7 +122,7 @@ function loadTab3() {
         if (!r.ok) {
             return r.json().then(err => {
                
-                alert(err.error || err.message || 'Error desconocido');
+                alert(err.error || err.message || 'Unknown error');
                 throw new Error('handled');
             });
         }
@@ -167,7 +167,7 @@ function saveConfiguration() {
     // 2. Feedback visual (opcional pero recomendado)
     const btn = event.target;
     btn.disabled = true; // Evita clics dobles
-    btn.innerText = "Guardando...";
+    btn.innerText = "Saving...";
 
     fetch('/fburo/save-template-config/', {
         method: 'POST',
@@ -181,19 +181,19 @@ function saveConfiguration() {
     .then(data => {
         console.log("Respuesta del servidor:", data);
         if(data.status === 'ok') {
-            alert("Cambios guardados correctamente.");
+            alert("Changes saved successfully.");
         } else {
-            alert("Error al guardar: " + (data.message || "Desconocido"));
+            alert("Error: Save error: " + (data.message || "Unknown error"));
         }
     })
     .catch(error => {
         console.error("Error en el fetch:", error);
-        alert("Error de conexión con el servidor.");
+        alert("Error: internal server connection error");
     })
     .finally(() => {
         // Restaurar estado del botón
         btn.disabled = false;
-        btn.innerText = "Guardar etiquetas";
+        btn.innerText = "Save tags";
     });
 }
 
@@ -243,7 +243,7 @@ function saveFilters() {
     })
     .then(r => r.json())
     .then(data => {
-        alert(data.message || "Guardado correctamente");
+        alert(data.message || "Saved successfully" );
     });
 }
 
@@ -277,7 +277,7 @@ function startProgressPolling() {
                     clearInterval(progressInterval);
                     text.innerText = "Completado ✅";
                     btn.disabled = false;
-                    alert("Lote procesado. Excel en " + job.result);
+                    alert("Batch processed. Found your Excel at " + job.result);
                 } else if (job.status === 'error') {
                     clearInterval(progressInterval);
                     text.innerText = "Error ❌";
@@ -288,7 +288,7 @@ function startProgressPolling() {
             .catch(err => {
                 clearInterval(progressInterval);
                 btn.disabled = false;
-                console.error("Error consultando progreso:", err);
+                console.error("Error requisting batch progress:", err);
             });
     }, 1000);
 }

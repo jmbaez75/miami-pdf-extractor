@@ -2,10 +2,10 @@
     "pdf_folder": "/home/administrador/datos_prueba/",
     "pdf_input": "prueba.pdf",
     "map_file_folder": "/home/administrador/datos_prueba/",
-    "map_file": "map_result.csv",
+    "map_file": "mapa_abonos_sabadell.csv",
     "mass_pdf_folder": "/home/administrador/datos_prueba/PDF",
-    "excel_folder": "/home/administrador/datos_prueba/fffff",
+    "excel_folder": "/home/administrador/datos_prueba/",
     "sensitivity": "28",
     "output_map_path": "/home/administrador/datos_prueba",
-    "last_map_route_pdf": "/home/administrador/datos_prueba/g/home/administrador/datos_prueba"
+    "last_map_route_pdf": "/home/administrador/datos_prueba/prueba.pdf"
 }

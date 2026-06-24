@@ -138,22 +138,14 @@ input[type=range] {
     margin-top: 15px;
 }
 
-Tienes toda la razón. Actualmente, tu tabla en la Tab 3 utiliza estilos del navegador por defecto, lo que genera un contraste visual muy brusco comparado con la estética cuidada ("Miami Sunset") que tiene el resto de tu formulario.
-
-Para que la tabla se sienta integrada, debe seguir las mismas reglas de bordes redondeados, tipografía y espacio que usas en tus input.
-
-Aquí tienes los estilos que debes añadir a tu styles.css:
-CSS
-
-/* --- Estilos para la Tabla de Etiquetas (Tab 3) --- */
 table {
     width: 100%;
     margin: 20px 0;
-    border-collapse: collapse; /* ELIMINA BORDES DOBLES */
+    border-collapse: collapse; 
     border-spacing: 0;
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden; /* Esto hace que el radio de borde funcione */
+    overflow: hidden; 
 }
 
 #tab3 th {
@@ -207,4 +199,37 @@ button:disabled {
     margin-top: 15px;
     margin-bottom: 15px;
     line-height: 1.5;
+}
+
+.save-btn {
+    /* Color principal: Verde Cocodrilo */
+    background: linear-gradient(135deg, #2d5a27, #1e3d1a);
+    color: white;
+    
+    /* Estructura y forma */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    
+    /* Efecto visual */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efecto al pasar el ratón */
+.save-btn:hover {
+    background: linear-gradient(135deg, #3a7233, #2d5a27);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Efecto al hacer clic */
+.save-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
