@@ -15,7 +15,9 @@ Install easily in Linux: Appimage single file available in releases https://gith
 
 Follow wiki page intructions: https://github.com/jmbaez75/miami-pdf-extractor/wiki
 
-
+<p align="center">
+  <img src="static/images/screenshot.png" alt="MIAMI PDF Extractor screenshot" width="80%">
+</p>
 
 **FEATURES & CHARACTERISTICS**
 
