@@ -2,7 +2,7 @@
     "pdf_folder": "/home/administrador/datos_prueba/",
     "pdf_input": "prueba.pdf",
     "map_file_folder": "/home/administrador/datos_prueba/",
-    "map_file": "mapa_abonos_sabadell.csv",
+    "map_file": "map_result.csv",
     "mass_pdf_folder": "/home/administrador/datos_prueba/PDF",
     "excel_folder": "/home/administrador/datos_prueba/fffff",
     "sensitivity": "28",

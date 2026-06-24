@@ -7,6 +7,9 @@ WHEN YOU HAVE TO READ DATA FROM THOUSANDS OF SIMILAR PDFs.....
 
 Install easily in Linux: Appimage single file available in releases https://github.com/jmbaez75/miami-pdf-extractor/releases
 
+Follow wiki page intructions: https://github.com/jmbaez75/miami-pdf-extractor/wiki
+
+
 Miami PDF Extractor (M.P.E) is a user-friendly tool designed to automate the extraction of specific data points from large batches of PDF documents. Built with a clean UI and robust backend, it eliminates manual data entry, saving you time and reducing human error.
 🚀 Key Features
 
