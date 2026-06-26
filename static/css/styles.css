@@ -138,14 +138,6 @@ input[type=range] {
     margin-top: 15px;
 }
 
-Tienes toda la razón. Actualmente, tu tabla en la Tab 3 utiliza estilos del navegador por defecto, lo que genera un contraste visual muy brusco comparado con la estética cuidada ("Miami Sunset") que tiene el resto de tu formulario.
-
-Para que la tabla se sienta integrada, debe seguir las mismas reglas de bordes redondeados, tipografía y espacio que usas en tus input.
-
-Aquí tienes los estilos que debes añadir a tu styles.css:
-CSS
-
-/* --- Estilos para la Tabla de Etiquetas (Tab 3) --- */
 table {
     width: 100%;
     margin: 20px 0;
@@ -207,4 +199,47 @@ button:disabled {
     margin-top: 15px;
     margin-bottom: 15px;
     line-height: 1.5;
+}
+
+
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(45, 70, 61, 0.4);
+}
+
+
+/* --- Botón Primario: Verde Cocodrilo Sólido --- */
+.btn-primary {
+    background-color: #2d463d !important;
+    color: #ffffff !important;
+    border: 1px solid #1a2924 !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1a2924 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* --- Botón Secundario: Verde Cocodrilo con Borde (Estilo Outline) --- */
+.btn-secondary {
+    background-color: transparent !important;
+    color: #2d463d !important;
+    border: 2px solid #2d463d !important;
+    padding: 10px 22px; /* Ligeramente más pequeño por el borde */
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #2d463d !important;
+    color: #ffffff !important;
 }

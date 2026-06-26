@@ -115,7 +115,8 @@ def get_template_data(request):
     config = PersistenceManager.load_paths()
     path = os.path.join(config.get('map_file_folder'),config.get('map_file'))
     if not os.path.exists(path):
-        return JsonResponse({'status': 'error', 'message': 'CSV not fount with parameters in General&Batch. Check them'})
+        message_selected_fields = 'CSV not found. Please, check that the route and file name to .csv map in "PDF batch processing" tab exists in your system' 
+        return JsonResponse({'status': 'error', 'message': message_selected_fields})
         
     df = pd.read_csv(path)
     return JsonResponse(df.fillna('').to_dict(orient='records'), safe=False)

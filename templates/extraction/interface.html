@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Miami Data Extractor</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.2">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.7">
     <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}?v=2">    
 </head>
 <body>
@@ -90,6 +90,10 @@
     <div id="tab3" class="tab-content" style="display:none;">
         <h3>Map Editor (Tags)</h3>
         <div class="explanations">
+        This page depends on the .csv map file included in in tab "PDF batch procesing". If you dont see fields to fill, check
+        that the route to folder and the .csv name exists.
+        </div>
+        <div class="explanations">
         Each element in <b>left column</b> is a element in your map included in tab "PDF batch procesing".Be sure you defined a right path to a the .csv map file.
         </div>
         <div class="explanations">
@@ -107,7 +111,7 @@
         </table>
 
 </table>
-        <button onclick="saveConfiguration()">Save Tags</button>
+        <button class="btn-primary" onclick="saveConfiguration()">Save Tags</button>
     </div>
     <div id="tab4" class="tab-content" style="display:none;">
     <h3>Fileter management (CSV)</h3>
@@ -117,7 +121,7 @@
     <table class="table table-striped" id="table-filters">
         <thead>
             <tr>
-                <th>Seek Text</th>
+                <th>If text is found</th>
                 <th>Replacement</th>
                 <th></th>
             </tr>
@@ -125,8 +129,8 @@
         <tbody id="body-filtros">
             </tbody>
     </table>
-    <button type="button" class="btn btn-secondary" onclick="agregarFilaFiltro()">+ Añadir Fila</button>
-    <button type="button" class="btn btn-primary" onclick="saveFilters()">Guardar Filtros</button>
+    <button type="button" class="btn btn-primary" onclick="agregarFilaFiltro()">Add rows</button>
+    <button type="button" class="btn btn-primary" onclick="saveFilters()">Save filters</button>
 </div>  
     <div id="tab5" class="tab-content" style="">
         <h3>Instructions</h3>
