@@ -243,3 +243,26 @@ button:disabled {
     background-color: #2d463d !important;
     color: #ffffff !important;
 }
+
+/* --- Botón Delete: Rojo Profundo --- */
+.btn-delete {
+    background-color: #b32d2d !important; /* Rojo sangre profundo */
+    color: #ffffff !important;
+    border: 1px solid #8a2222 !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #8a2222 !important; /* Oscurecimiento al pasar el ratón */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-delete:active {
+    background-color: #661a1a !important;
+    transform: translateY(0);
+}

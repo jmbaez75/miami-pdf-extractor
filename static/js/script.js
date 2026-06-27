@@ -211,7 +211,7 @@ function loadTab4() {
             <tr>
                 <td><input type="text" name="original[]" value="${row.texto_original}" class="form-control"></td>
                 <td><input type="text" name="reemplazo[]" value="${row.texto_reemplazo}" class="form-control"></td>
-                <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Delete</button></td>
+                <td><button type="button" class="btn btn-delete btn-sm" onclick="this.closest('tr').remove()">Delete</button></td>
             </tr>`;
         });
     });
