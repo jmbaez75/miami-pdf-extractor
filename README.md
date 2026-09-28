@@ -59,7 +59,7 @@ Follow wiki page intructions: https://github.com/jmbaez75/miami-pdf-extractor/wi
     Clone the repository:
     Bash
 
-    git clone https://github.com/tu-usuario/miami-pdf-extractor.git
+    git clone https://github.com/jmbaez75/miami-pdf-extractor.git
     cd miami-pdf-extractor
 
     Install dependencies:
